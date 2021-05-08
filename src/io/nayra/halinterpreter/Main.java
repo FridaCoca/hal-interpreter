@@ -14,7 +14,7 @@ public class Main {
         registry[1] = 2;
         registry[2] = 1;
         String program = """
-                IN 1
+                LOAD 2
                 """;
         interpret(program);
     }
@@ -52,6 +52,10 @@ public class Main {
                 int ioNumber = Integer.parseInt(tokens[1]);
                 return new InInstruction(ioNumber);
             }
+            case "LOAD":{
+                int registerNumber = Integer.parseInt(tokens[1]);
+                return new LoadInstruction(registerNumber);
+            }
             case "ADD": {
                 int registryNumber = Integer.parseInt(tokens[1]);
                 return new AddInstruction(registryNumber);
@@ -60,7 +64,6 @@ public class Main {
                 int registryNumber = Integer.parseInt(tokens[1]);
                 return new RemoveInstruction(registryNumber);
             }
-
             default:
                 return null;
         }
