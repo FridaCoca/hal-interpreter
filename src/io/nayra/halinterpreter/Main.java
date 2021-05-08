@@ -14,6 +14,7 @@ public class Main {
         registry[1] = 2;
         registry[2] = 1;
         String program = """
+                START
                 ADD 1
                 REMOVE 2
                 STOP 0
@@ -37,8 +38,15 @@ public class Main {
 
     static Instruction parseInstruction(String instruction) {
         String[] tokens = instruction.split(" ");
-        System.out.println("parsing: " + tokens[0] + "-" + tokens[1]);
+        printTokens(tokens);
+
         switch (tokens[0]) {
+            case "START": {
+                return new StartInstruction();
+            }
+            case "STOP":{
+
+            }
             case "ADD": {
                 int registryNumber = Integer.parseInt(tokens[1]);
                 return new AddInstruction(registryNumber);
@@ -49,6 +57,14 @@ public class Main {
             }
             default:
                 return null;
+        }
+    }
+
+    private static void printTokens(String[] tokens) {
+        if (tokens.length == 2){
+            System.out.println("parsing: " + tokens[0] + "-" + tokens[1]);
+        }else{
+            System.out.println("parsing: " + tokens[0]);
         }
     }
 }
