@@ -8,7 +8,7 @@ public class OutInstruction extends Instruction {
     }
 
     @Override
-    void run() {//Prints ACUU: ????
+    void run() {
         if (number == 0) {
             Main.io0 = Main.accu;
             System.out.println("io0: " + Main.io0);
