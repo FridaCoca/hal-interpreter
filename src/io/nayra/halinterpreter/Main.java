@@ -3,8 +3,7 @@ package io.nayra.halinterpreter;
 import java.util.Arrays;
 
 public class Main {
-    static String[] instructions; //static makes string[] accessible from everywhere
-    static float[] registry = new float[16];
+    static float[] registry = new float[16];//static makes string[] accessible from everywhere
     static float accu = 0;
     static int pc = 0;
     static float io0 = 0;
