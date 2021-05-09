@@ -14,7 +14,7 @@ public class Main {
         registry[1] = 2;
         registry[2] = 10;
         String program = """
-                DIV 2
+                SUBNUM 2
                  
                  """;
         interpret(program);
@@ -104,7 +104,10 @@ public class Main {
                 int registerNumber = Integer.parseInt(tokens[1]);
                 return new DivideInstruction(registerNumber);
             }
-
+            case "SUBNUM": {
+                float value = Integer.parseInt(tokens[1]);
+                return new SubNumberInstruction(value);
+            }
             case "REMOVE": {
                 int registryNumber = Integer.parseInt(tokens[1]);
                 return new RemoveInstruction(registryNumber);
