@@ -12,9 +12,10 @@ public class Main {
     public static void main(String[] args) {
         Arrays.fill(registry, 0);//initializes elems of registry with 0
         registry[1] = 2;
-        registry[2] = 1;
+        registry[2] = 20;
         String program = """
-                ADDNUM 20
+                SUB 2
+                
                 """;
         interpret(program);
     }
@@ -90,6 +91,10 @@ public class Main {
             case "ADDNUM": {
                 int value = Integer.parseInt(tokens[1]);
                 return new AddNumInstruction(value);
+            }
+            case "SUB": {
+                int value = Integer.parseInt(tokens[1]);
+                return new SubInstruction(value);
             }
             case "REMOVE": {
                 int registryNumber = Integer.parseInt(tokens[1]);
