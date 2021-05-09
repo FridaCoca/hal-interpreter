@@ -14,7 +14,7 @@ public class Main {
         registry[1] = 2;
         registry[2] = 10;
         String program = """
-                MULNUM 2
+                DIVNUM 2
                  
                  """;
         interpret(program);
@@ -111,6 +111,10 @@ public class Main {
             case "MULNUM": {
                 float value = Integer.parseInt(tokens[1]);
                 return new MultiplicationNumberInstruction(value);
+            }
+            case "DIVNUM": {
+                float value = Integer.parseInt(tokens[1]);
+                return new DivideNumberInstruction(value);
             }
             case "REMOVE": {
                 int registryNumber = Integer.parseInt(tokens[1]);
