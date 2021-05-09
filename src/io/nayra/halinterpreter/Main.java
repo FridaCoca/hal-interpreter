@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Main {
     static float[] registry = new float[16];//static makes string[] accessible from everywhere
-    static float accu = 0;
+    static float accu = 20;
     static int pc = 0;
     static float io0 = 5;
     static float io1 = 6;
@@ -12,11 +12,11 @@ public class Main {
     public static void main(String[] args) {
         Arrays.fill(registry, 0);//initializes elems of registry with 0
         registry[1] = 2;
-        registry[2] = 20;
+        registry[2] = 10;
         String program = """
-                SUB 2
-                
-                """;
+                DIV 2
+                 
+                 """;
         interpret(program);
     }
 
@@ -96,6 +96,15 @@ public class Main {
                 int value = Integer.parseInt(tokens[1]);
                 return new SubInstruction(value);
             }
+            case "MUL": {
+                int registerNumber = Integer.parseInt(tokens[1]);
+                return new MultiplicationInstruction(registerNumber);
+            }
+            case "DIV": {
+                int registerNumber = Integer.parseInt(tokens[1]);
+                return new DivideInstruction(registerNumber);
+            }
+
             case "REMOVE": {
                 int registryNumber = Integer.parseInt(tokens[1]);
                 return new RemoveInstruction(registryNumber);
