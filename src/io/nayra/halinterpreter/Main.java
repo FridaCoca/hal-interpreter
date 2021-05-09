@@ -14,7 +14,7 @@ public class Main {
         registry[1] = 2;
         registry[2] = 10;
         String program = """
-                SUBNUM 2
+                MULNUM 2
                  
                  """;
         interpret(program);
@@ -107,6 +107,10 @@ public class Main {
             case "SUBNUM": {
                 float value = Integer.parseInt(tokens[1]);
                 return new SubNumberInstruction(value);
+            }
+            case "MULNUM": {
+                float value = Integer.parseInt(tokens[1]);
+                return new MultiplicationNumberInstruction(value);
             }
             case "REMOVE": {
                 int registryNumber = Integer.parseInt(tokens[1]);
