@@ -1,9 +1,9 @@
 package io.nayra.halinterpreter;
 
-public class JumpNullInstrustion extends Instruction{
+public class JumpNullInstruction extends Instruction{
     int programmSpeicherAddr;
 
-    public JumpNullInstrustion(int programmSpeicherAddr) {
+    public JumpNullInstruction(int programmSpeicherAddr) {
         this.programmSpeicherAddr = programmSpeicherAddr;
     }
 

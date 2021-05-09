@@ -14,7 +14,7 @@ public class Main {
         registry[1] = 2;
         registry[2] = 1;
         String program = """
-                JUMPNULL 20
+                ADDNUM 20
                 """;
         interpret(program);
     }
@@ -77,13 +77,20 @@ public class Main {
             }
             case "JUMPNULL": {
                 int programmSpeicherAddr = Integer.parseInt(tokens[1]);
-                return new JumpNullInstrustion(programmSpeicherAddr);
+                return new JumpNullInstruction(programmSpeicherAddr);
+            }
+            case "JUMP": {
+                int programmSpeicherAddr = Integer.parseInt(tokens[1]);
+                return new JumpInstruction(programmSpeicherAddr);
             }
             case "ADD": {
                 int registryNumber = Integer.parseInt(tokens[1]);
                 return new AddInstruction(registryNumber);
             }
-
+            case "ADDNUM": {
+                int value = Integer.parseInt(tokens[1]);
+                return new AddNumInstruction(value);
+            }
             case "REMOVE": {
                 int registryNumber = Integer.parseInt(tokens[1]);
                 return new RemoveInstruction(registryNumber);
