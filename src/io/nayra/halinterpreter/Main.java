@@ -14,7 +14,7 @@ public class Main {
         registry[1] = 2;
         registry[2] = 1;
         String program = """
-                LOAD 2
+                LOADNUM 2
                 """;
         interpret(program);
     }
@@ -55,6 +55,10 @@ public class Main {
             case "LOAD":{
                 int registerNumber = Integer.parseInt(tokens[1]);
                 return new LoadInstruction(registerNumber);
+            }
+            case "LOADNUM":{
+                float value = Integer.parseInt(tokens[1]);
+                return new LoadNumberInstruction(value);
             }
             case "ADD": {
                 int registryNumber = Integer.parseInt(tokens[1]);

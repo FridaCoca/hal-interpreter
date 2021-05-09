@@ -9,6 +9,6 @@ public class LoadNumberInstruction extends Instruction {
 
     @Override
     void run() {
-        // TODO stores the value in accu
+        Main.accu = value;
     }
 }
