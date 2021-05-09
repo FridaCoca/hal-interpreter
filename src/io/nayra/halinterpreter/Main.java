@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Main {
     static float[] registry = new float[16];//static makes string[] accessible from everywhere
-    static float accu = 0;
+    static float accu = - 10;
     static int pc = 0;
     static float io0 = 5;
     static float io1 = 6;
@@ -14,7 +14,7 @@ public class Main {
         registry[1] = 2;
         registry[2] = 1;
         String program = """
-                LOADNUM 2
+                JUMPNEG 20
                 """;
         interpret(program);
     }
@@ -31,6 +31,9 @@ public class Main {
 
     private static void printState() {
         System.out.println("ACCU: " + accu);
+        System.out.println("REG2: " + registry[2]);
+        System.out.println("PC: " + pc);
+
     }
 
     static Instruction parseInstruction(String instruction) {
@@ -59,6 +62,14 @@ public class Main {
             case "LOADNUM":{
                 float value = Integer.parseInt(tokens[1]);
                 return new LoadNumberInstruction(value);
+            }
+            case "STORE":{
+                int registerNumber = Integer.parseInt(tokens[1]);
+                return new StoreInstruction(registerNumber);
+            }
+            case "JUMPNEG":{
+                int programmSpeicherAddr = Integer.parseInt(tokens[1]);
+                return new JumpNegInstruction(programmSpeicherAddr);
             }
             case "ADD": {
                 int registryNumber = Integer.parseInt(tokens[1]);
