@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Main {
     static float[] registry = new float[16];//static makes string[] accessible from everywhere
-    static float accu = 10;
+    static float accu = 0;
     static int pc = 0;
     static float io0 = 5;
     static float io1 = 6;
@@ -14,7 +14,7 @@ public class Main {
         registry[1] = 2;
         registry[2] = 1;
         String program = """
-                JUMPPOS 20
+                JUMPNULL 20
                 """;
         interpret(program);
     }
@@ -44,35 +44,40 @@ public class Main {
             case "START": {
                 return new StartInstruction();
             }
-            case "STOP":{
+            case "STOP": {
                 return new StopInstruction();
             }
-            case "OUT":{
+            case "OUT": {
                 int ioNumber = Integer.parseInt(tokens[1]);
                 return new OutInstruction(ioNumber);
             }
-            case "IN":{
+            case "IN": {
                 int ioNumber = Integer.parseInt(tokens[1]);
                 return new InInstruction(ioNumber);
             }
-            case "LOAD":{
+            case "LOAD": {
                 int registerNumber = Integer.parseInt(tokens[1]);
                 return new LoadInstruction(registerNumber);
             }
-            case "LOADNUM":{
+            case "LOADNUM": {
                 float value = Integer.parseInt(tokens[1]);
                 return new LoadNumberInstruction(value);
             }
-            case "STORE":{
+            case "STORE": {
                 int registerNumber = Integer.parseInt(tokens[1]);
                 return new StoreInstruction(registerNumber);
             }
-            case "JUMPNEG":{
+            case "JUMPNEG": {
                 int programmSpeicherAddr = Integer.parseInt(tokens[1]);
                 return new JumpNegInstruction(programmSpeicherAddr);
-            }case "JUMPPOS":{
+            }
+            case "JUMPPOS": {
                 int programmSpeicherAddr = Integer.parseInt(tokens[1]);
                 return new JumpPosInstruction(programmSpeicherAddr);
+            }
+            case "JUMPNULL": {
+                int programmSpeicherAddr = Integer.parseInt(tokens[1]);
+                return new JumpNullInstrustion(programmSpeicherAddr);
             }
             case "ADD": {
                 int registryNumber = Integer.parseInt(tokens[1]);
@@ -89,9 +94,9 @@ public class Main {
     }
 
     private static void printTokens(String[] tokens) {
-        if (tokens.length == 2){
+        if (tokens.length == 2) {
             System.out.println("parsing: " + tokens[0] + "-" + tokens[1]);
-        }else{
+        } else {
             System.out.println("parsing: " + tokens[0]);
         }
     }
