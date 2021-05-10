@@ -9,7 +9,7 @@ public class RemoveInstruction extends Instruction {
 
     @Override
     void run() {
-        float value = Main.registry[registryNumber];
+        float value = Main.registers[registryNumber];
         Main.accu = Main.accu - value;
 
     }

@@ -8,6 +8,6 @@ public class LoadInstruction extends Instruction{
     }
     @Override
     void run() {
-        Main.accu = Main.registry[registerNumber];
+        Main.accu = Main.registers[registerNumber];
     }
 }

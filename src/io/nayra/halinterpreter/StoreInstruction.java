@@ -9,7 +9,7 @@ public class StoreInstruction extends Instruction{
 
     @Override
     void run() {
-        Main.registry[registerNumber] = Main.accu;
+        Main.registers[registerNumber] = Main.accu;
         Main.accu = 0;
         Main.pc = Main.pc +1;
     }

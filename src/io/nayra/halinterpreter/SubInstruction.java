@@ -9,7 +9,7 @@ public class SubInstruction extends Instruction {
 
     @Override
     void run() {
-        Main.accu = Main.accu - Main.registry[registerNumber];
+        Main.accu = Main.accu - Main.registers[registerNumber];
         Main.pc = Main.pc + 1;
 
     }

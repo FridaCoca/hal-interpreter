@@ -9,7 +9,7 @@ public class AddInstruction extends Instruction {
 
     @Override
     void run() {
-        float value = Main.registry[registerNumber];
+        float value = Main.registers[registerNumber];
         Main.accu = Main.accu + value;
     }
 }

@@ -1,23 +1,39 @@
 package io.nayra.halinterpreter;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Main {
-    static float[] registry = new float[16];//static makes string[] accessible from everywhere
+    static float[] registers = new float[16];//static makes string[] accessible from everywhere
     static float accu = 20;
     static int pc = 0;
     static float io0 = 5;
     static float io1 = 6;
 
     public static void main(String[] args) {
-        Arrays.fill(registry, 0);//initializes elems of registry with 0
-        registry[1] = 2;
-        registry[2] = 10;
-        String program = """
-                DIVNUM 2
-                 
-                 """;
-        interpret(program);
+        Arrays.fill(registers, 0);//initializes Elements of registry with 0
+        registers[1] = 2;
+        registers[2] = 10;
+
+        ArrayList<String> script = fileToArrayList("script.hal");
+
+        interpret(script);
+    }
+
+    static ArrayList<String> fileToArrayList(String filename) {
+        ArrayList<String> result = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+            while (br.ready()) {
+                result.add(br.readLine());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
     static void interpret(String program) {
@@ -30,9 +46,18 @@ public class Main {
         printState();
     }
 
+    static void interpret(ArrayList<String> script) {
+        for (String instruction : script) {
+            Instruction o = parseInstruction(instruction);
+            System.out.println(o);
+            if (o != null) o.run();
+        }
+        printState();
+    }
+
     private static void printState() {
         System.out.println("ACCU: " + accu);
-        System.out.println("REG2: " + registry[2]);
+        System.out.println("REG2: " + registers[2]);
         System.out.println("PC: " + pc);
 
     }
