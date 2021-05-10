@@ -66,7 +66,7 @@ public class Main {
         String[] tokens = instruction.split(" ");
         printTokens(tokens);
 
-        switch (tokens[0]) {
+        switch (tokens[1]) {
             case "START": {
                 return new StartInstruction();
             }
@@ -74,75 +74,75 @@ public class Main {
                 return new StopInstruction();
             }
             case "OUT": {
-                int ioNumber = Integer.parseInt(tokens[1]);
+                int ioNumber = Integer.parseInt(tokens[2]);
                 return new OutInstruction(ioNumber);
             }
             case "IN": {
-                int ioNumber = Integer.parseInt(tokens[1]);
+                int ioNumber = Integer.parseInt(tokens[2]);
                 return new InInstruction(ioNumber);
             }
             case "LOAD": {
-                int registerNumber = Integer.parseInt(tokens[1]);
+                int registerNumber = Integer.parseInt(tokens[2]);
                 return new LoadInstruction(registerNumber);
             }
             case "LOADNUM": {
-                float value = Integer.parseInt(tokens[1]);
+                float value = Integer.parseInt(tokens[2]);
                 return new LoadNumberInstruction(value);
             }
             case "STORE": {
-                int registerNumber = Integer.parseInt(tokens[1]);
+                int registerNumber = Integer.parseInt(tokens[2]);
                 return new StoreInstruction(registerNumber);
             }
             case "JUMPNEG": {
-                int programmSpeicherAddr = Integer.parseInt(tokens[1]);
+                int programmSpeicherAddr = Integer.parseInt(tokens[2]);
                 return new JumpNegInstruction(programmSpeicherAddr);
             }
             case "JUMPPOS": {
-                int programmSpeicherAddr = Integer.parseInt(tokens[1]);
+                int programmSpeicherAddr = Integer.parseInt(tokens[2]);
                 return new JumpPosInstruction(programmSpeicherAddr);
             }
             case "JUMPNULL": {
-                int programmSpeicherAddr = Integer.parseInt(tokens[1]);
+                int programmSpeicherAddr = Integer.parseInt(tokens[2]);
                 return new JumpNullInstruction(programmSpeicherAddr);
             }
             case "JUMP": {
-                int programmSpeicherAddr = Integer.parseInt(tokens[1]);
+                int programmSpeicherAddr = Integer.parseInt(tokens[2]);
                 return new JumpInstruction(programmSpeicherAddr);
             }
             case "ADD": {
-                int registryNumber = Integer.parseInt(tokens[1]);
+                int registryNumber = Integer.parseInt(tokens[2]);
                 return new AddInstruction(registryNumber);
             }
             case "ADDNUM": {
-                int value = Integer.parseInt(tokens[1]);
+                int value = Integer.parseInt(tokens[2]);
                 return new AddNumInstruction(value);
             }
             case "SUB": {
-                int value = Integer.parseInt(tokens[1]);
+                int value = Integer.parseInt(tokens[2]);
                 return new SubInstruction(value);
             }
             case "MUL": {
-                int registerNumber = Integer.parseInt(tokens[1]);
+                int registerNumber = Integer.parseInt(tokens[2]);
                 return new MultiplicationInstruction(registerNumber);
             }
             case "DIV": {
-                int registerNumber = Integer.parseInt(tokens[1]);
+                int registerNumber = Integer.parseInt(tokens[2]);
                 return new DivideInstruction(registerNumber);
             }
             case "SUBNUM": {
-                float value = Integer.parseInt(tokens[1]);
+                float value = Integer.parseInt(tokens[2]);
                 return new SubNumberInstruction(value);
             }
             case "MULNUM": {
-                float value = Integer.parseInt(tokens[1]);
+                float value = Integer.parseInt(tokens[2]);
                 return new MultiplicationNumberInstruction(value);
             }
             case "DIVNUM": {
-                float value = Integer.parseInt(tokens[1]);
+                float value = Integer.parseInt(tokens[2]);
                 return new DivideNumberInstruction(value);
             }
             case "REMOVE": {
-                int registryNumber = Integer.parseInt(tokens[1]);
+                int registryNumber = Integer.parseInt(tokens[2]);
                 return new RemoveInstruction(registryNumber);
             }
             default:
@@ -151,10 +151,10 @@ public class Main {
     }
 
     private static void printTokens(String[] tokens) {
-        if (tokens.length == 2) {
-            System.out.println("parsing: " + tokens[0] + "-" + tokens[1]);
+        if (tokens.length == 3) {
+            System.out.println("parsing: " + tokens[1] + "-" + tokens[1]);
         } else {
-            System.out.println("parsing: " + tokens[0]);
+            System.out.println("parsing: " + tokens[1]);
         }
     }
 }
