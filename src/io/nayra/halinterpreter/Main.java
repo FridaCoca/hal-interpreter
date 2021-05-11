@@ -1,34 +1,89 @@
-package io.nayra.halinterpreter;
+//package io.nayra.halinterpreter;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.io.File;
+//import java.util.Scanner;
 
 public class Main {
+    static float[] memory = new float[100];
     static float[] registers = new float[16];//static makes string[] accessible from everywhere
     static float accu = 20;
     static int pc = 0;
     static float io0 = 5;
     static float io1 = 6;
-    static boolean debugMode = true;
+    static boolean debugMode = false;
     static int neededRegister = -1;
+
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
 
+        /*System.out.println("Soll der Debug Mode aktiviert werden?");
+        Scanner sc = new Scanner(System.in);
+        String input = sc.next();
+
+        if(input == "Yes"){
+            //debugMode = true;
+            
+        }
+        else{
+            //debugMode = false;
+            System.out.println("False");
+        }*/
+        
+        
+        /*char argument;
+        String file;
+        for(int i = 0; i < args.length; i++){
+            
+            argument = args[i].charAt(0);
+            if(args[i].equals("d")){
+                System.out.println("Debug");
+                debugMode = true;
+            }
+            String filename;
+            if(argument == '.'){
+                System.out.println("Pfad");
+                filename = args[i];
+            }
+            try{
+                file = filename;
+            }catch (Exception e) {
+                e.printStackTrace();
+
+            }
+            
+
+        }*/
+
+        debugMode = Arrays.asList(args).contains("-d");
+        System.out.println("Debug enabled: " + debugMode);
+
+        Arrays.fill(memory, 5);//initializes Elements of registry with 0
+        memory[2] = 3;
+
         Arrays.fill(registers, 0);//initializes Elements of registry with 0
         registers[1] = 2;//for debugging
-        registers[2] = 10;
+        registers[2] = 2;
 
-        ArrayList<String> script = fileToArrayList("script.hal");
 
-        interpret(script);
-
+        for (String a : args) {
+            if (new File(a).exists()) {
+                ArrayList<String> script = fileToArrayList(a);
+                interpret(script);
+                break;
+            }
+        }
+        
+        
         long endTime = System.currentTimeMillis();
 
         System.out.println("That took " + (endTime - startTime) + " milliseconds");
+        //sc.close();
     }
 
     static ArrayList<String> fileToArrayList(String filename) {
@@ -169,6 +224,14 @@ public class Main {
             case "REMOVE": {
                 neededRegister = Integer.parseInt(tokens[2]);
                 return new RemoveInstruction(neededRegister);
+            }
+            case "LOADIND" : {
+                neededRegister = Integer.parseInt(tokens[2]);
+                return new LoadIndInstruction(neededRegister);
+            }
+            case "STOREIND" : {
+                neededRegister = Integer.parseInt(tokens[2]);
+                return new StoreIndInstruction(neededRegister);
             }
             default:
                 return null;

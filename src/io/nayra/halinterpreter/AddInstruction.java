@@ -1,4 +1,4 @@
-package io.nayra.halinterpreter;
+//package io.nayra.halinterpreter;
 
 public class AddInstruction extends Instruction {
     private final int registerNumber;

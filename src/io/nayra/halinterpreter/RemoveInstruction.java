@@ -1,4 +1,4 @@
-package io.nayra.halinterpreter;
+//package io.nayra.halinterpreter;
 
 public class RemoveInstruction extends Instruction {
     private final int registryNumber;
