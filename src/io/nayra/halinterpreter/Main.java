@@ -1,4 +1,4 @@
-//package io.nayra.halinterpreter;
+package io.nayra.halinterpreter;
 
 import java.io.BufferedReader;
 import java.io.FileReader;

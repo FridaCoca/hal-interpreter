@@ -1,3 +1,4 @@
+package io.nayra.halinterpreter;
 public class LoadIndInstruction extends Instruction{
     int register;
 
