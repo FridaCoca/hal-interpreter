@@ -10,5 +10,7 @@ public class LoadNumberInstruction extends Instruction {
     @Override
     void run() {
         Main.accu = value;
+        Main.pc = Main.pc + 1;
+
     }
 }

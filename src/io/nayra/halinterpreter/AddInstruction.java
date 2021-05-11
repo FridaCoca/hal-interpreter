@@ -11,5 +11,6 @@ public class AddInstruction extends Instruction {
     void run() {
         float value = Main.registers[registerNumber];
         Main.accu = Main.accu + value;
+        Main.pc = Main.pc + 1;
     }
 }

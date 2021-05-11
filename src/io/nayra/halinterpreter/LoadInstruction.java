@@ -9,5 +9,6 @@ public class LoadInstruction extends Instruction{
     @Override
     void run() {
         Main.accu = Main.registers[registerNumber];
+        Main.pc = Main.pc + 1;
     }
 }

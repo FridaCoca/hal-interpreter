@@ -16,5 +16,7 @@ public class OutInstruction extends Instruction {
             Main.io1 = Main.accu;
             System.out.println("io1: " + Main.io1);
         }
+        Main.pc = Main.pc + 1;
+
     }
 }
