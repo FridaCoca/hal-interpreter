@@ -1,9 +1,11 @@
 package io.nayra.halinterpreter;
 
 public class LoadNumberInstruction extends Instruction {
+    int instructionIndex;
     float value;
 
-    public LoadNumberInstruction(float value) {
+    public LoadNumberInstruction(int instructionIndex, float value) {
+        this.instructionIndex = instructionIndex;
         this.value = value;
     }
 
@@ -12,5 +14,9 @@ public class LoadNumberInstruction extends Instruction {
         Main.accu = value;
         Main.pc = Main.pc + 1;
 
+    }
+    @Override
+    int getInstructionIndex() {
+        return instructionIndex;
     }
 }

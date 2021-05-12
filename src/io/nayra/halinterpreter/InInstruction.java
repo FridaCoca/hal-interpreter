@@ -2,9 +2,11 @@ package io.nayra.halinterpreter;
 
 public class InInstruction extends Instruction {
     private int number;
+    int instructionIndex;
 
-    public InInstruction(int number) {
+    public InInstruction(int number, int instructionIndex) {
         this.number = number;
+        this.instructionIndex = instructionIndex;
     }
 
     @Override
@@ -17,5 +19,10 @@ public class InInstruction extends Instruction {
         System.out.println("ACCU: " + Main.accu);
 
         Main.pc = Main.pc + 1;
+    }
+
+    @Override
+    int getInstructionIndex() {
+        return instructionIndex;
     }
 }

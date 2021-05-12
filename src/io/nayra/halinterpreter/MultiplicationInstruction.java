@@ -1,9 +1,11 @@
 package io.nayra.halinterpreter;
 
 public class MultiplicationInstruction extends Instruction {
+    int instructionIndex;
     int registerNumber;
 
-    public MultiplicationInstruction(int registerNumber) {
+    public MultiplicationInstruction(int instructionIndex, int registerNumber) {
+        this.instructionIndex = instructionIndex;
         this.registerNumber = registerNumber;
     }
 
@@ -11,5 +13,9 @@ public class MultiplicationInstruction extends Instruction {
     void run() {
         Main.accu = Main.accu * Main.registers[registerNumber];
         Main.pc = Main.pc + 1;
+    }
+    @Override
+    int getInstructionIndex() {
+        return instructionIndex;
     }
 }
