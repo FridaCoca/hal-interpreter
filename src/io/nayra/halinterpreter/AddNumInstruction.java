@@ -4,7 +4,7 @@ public class AddNumInstruction extends Instruction {
     float value;
     int instructionIndex;
 
-    public AddNumInstruction(float value, int instructionIndex) {
+    public AddNumInstruction(int instructionIndex, float value) {
         this.value = value;
         this.instructionIndex = instructionIndex;
     }

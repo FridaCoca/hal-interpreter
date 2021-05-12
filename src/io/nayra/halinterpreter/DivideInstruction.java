@@ -4,7 +4,7 @@ public class DivideInstruction extends Instruction {
     int registerNumber;
     int instructionIndex;
 
-    public DivideInstruction(int registerNumber, int instructionIndex) {
+    public DivideInstruction(int instructionIndex, int registerNumber) {
         this.registerNumber = registerNumber;
         this.instructionIndex = instructionIndex;
     }

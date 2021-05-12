@@ -11,11 +11,11 @@ import java.io.File;
 public class Main {
     static float[] memory = new float[100];
     static float[] registers = new float[16];//static makes string[] accessible from everywhere
-    static float accu = 20;
+    static float accu = 0;
     static int pc = 0;
-    static float io0 = 5;
-    static float io1 = 6;
-    static boolean debugMode = false;
+    static float io0 = 0;
+    static float io1 = 0;
+    static boolean debugMode = true;
     static int neededRegister = -1;
 
 
@@ -67,8 +67,8 @@ public class Main {
         memory[2] = 3;
 
         Arrays.fill(registers, 0);//initializes Elements of registry with 0
-        registers[1] = 2;//for debugging
-        registers[2] = 2;
+        //registers[1] = 2;//for debugging
+        //registers[2] = 2;
 
 
         for (String a : args) {
@@ -78,8 +78,8 @@ public class Main {
                 break;
             }
         }
-        
-        
+
+
         long endTime = System.currentTimeMillis();
 
         System.out.println("That took " + (endTime - startTime) + " milliseconds");
@@ -112,15 +112,27 @@ public class Main {
         for (String instruction : script) {
             Instruction o = parseInstruction(instruction);
             Class c = o.getClass();
-            // System.out.println(o);
             if (debugMode) printForDebug(c);
-            if(o.getInstructionIndex() == Main.pc){
-                if (o != null) o.run();}
+            if (o.getInstructionIndex() == pc) {
+                //System.out.println("Compare worked!!");
+                if (o != null) o.run();
+            }
             if (debugMode) printForDebug(c);
         }
     }
+    /*static void interpreXt(ArrayList<String> script) {
+        while(pc < script.size()) {
+            Instruction o = parseInstruction(script.get(pc));
+            Class c = o.getClass();
+            if (debugMode) printForDebug(c);
+            if (o.getInstructionIndex() == pc) {
+                //System.out.println("Compare worked!!");
+                if (o != null) o.run();
+            }
+            if (debugMode) printForDebug(c);
+        }*/
 
-    static boolean classUsesRegister(Instruction o) {
+    /*static boolean classUsesRegister(Instruction o) {
         Class c = o.getClass();
         if (c == AddInstruction.class) return true;
         else if (c == SubInstruction.class) return true;
@@ -129,12 +141,12 @@ public class Main {
         else if (c == LoadInstruction.class) return true;
             //else if (c == StoreInDInstruction.class) return true;
         else return false;
-    }
+    }*/
 
     private static void printForDebug(Class c) {
 
         System.out.println("ACCU: " + accu);
-        if(neededRegister != -1){
+        if (neededRegister != -1) {
             System.out.println("REG" + neededRegister + ": " + registers[neededRegister]);
         }
         System.out.println("PC: " + pc);
@@ -144,6 +156,7 @@ public class Main {
 
     static Instruction parseInstruction(String instruction) {
         String[] tokens = instruction.split(" ");
+        //System.out.println("lola" + tokens[0]);
         if (debugMode) printCommand(tokens);
         neededRegister = -1;
 
@@ -159,47 +172,47 @@ public class Main {
             case "OUT": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 int ioNumber = Integer.parseInt(tokens[2]);
-                return new OutInstruction(instructionIndex,ioNumber);
+                return new OutInstruction(instructionIndex, ioNumber);
             }
             case "IN": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 int ioNumber = Integer.parseInt(tokens[2]);
-                return new InInstruction(instructionIndex,ioNumber);
+                return new InInstruction(instructionIndex, ioNumber);
             }
             case "LOAD": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 neededRegister = Integer.parseInt(tokens[2]);
-                return new LoadInstruction(instructionIndex,neededRegister);
+                return new LoadInstruction(instructionIndex, neededRegister);
             }
             case "LOADNUM": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 float value = Integer.parseInt(tokens[2]);
-                return new LoadNumberInstruction(instructionIndex,value);
+                return new LoadNumberInstruction(instructionIndex, value);
             }
             case "STORE": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 neededRegister = Integer.parseInt(tokens[2]);
-                return new StoreInstruction(instructionIndex,neededRegister);
+                return new StoreInstruction(instructionIndex, neededRegister);
             }
             case "JUMPNEG": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 int programmSpeicherAddr = Integer.parseInt(tokens[2]);
-                return new JumpNegInstruction(instructionIndex,programmSpeicherAddr);
+                return new JumpNegInstruction(instructionIndex, programmSpeicherAddr);
             }
             case "JUMPPOS": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 int programmSpeicherAddr = Integer.parseInt(tokens[2]);
-                return new JumpPosInstruction(instructionIndex,programmSpeicherAddr);
+                return new JumpPosInstruction(instructionIndex, programmSpeicherAddr);
             }
             case "JUMPNULL": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 int programmSpeicherAddr = Integer.parseInt(tokens[2]);
-                return new JumpNullInstruction(instructionIndex,programmSpeicherAddr);
+                return new JumpNullInstruction(instructionIndex, programmSpeicherAddr);
             }
             case "JUMP": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 int programmSpeicherAddr = Integer.parseInt(tokens[2]);
-                return new JumpInstruction(instructionIndex,programmSpeicherAddr);
+                return new JumpInstruction(instructionIndex, programmSpeicherAddr);
             }
             case "ADD": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
@@ -214,47 +227,47 @@ public class Main {
             case "SUB": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 int value = Integer.parseInt(tokens[2]);
-                return new SubInstruction(instructionIndex,value);
+                return new SubInstruction(instructionIndex, value);
             }
             case "MUL": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 neededRegister = Integer.parseInt(tokens[2]);
-                return new MultiplicationInstruction(instructionIndex,neededRegister);
+                return new MultiplicationInstruction(instructionIndex, neededRegister);
             }
             case "DIV": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 neededRegister = Integer.parseInt(tokens[2]);
-                return new DivideInstruction(instructionIndex,neededRegister);
+                return new DivideInstruction(instructionIndex, neededRegister);
             }
             case "SUBNUM": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 float value = Integer.parseInt(tokens[2]);
-                return new SubNumberInstruction(instructionIndex,value);
+                return new SubNumberInstruction(instructionIndex, value);
             }
             case "MULNUM": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 float value = Integer.parseInt(tokens[2]);
-                return new MultiplicationNumberInstruction(instructionIndex,value);
+                return new MultiplicationNumberInstruction(instructionIndex, value);
             }
             case "DIVNUM": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 float value = Integer.parseInt(tokens[2]);
-                return new DivideNumberInstruction(instructionIndex,value);
+                return new DivideNumberInstruction(instructionIndex, value);
             }
             case "REMOVE": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 neededRegister = Integer.parseInt(tokens[2]);
-                return new RemoveInstruction(instructionIndex,neededRegister);
+                return new RemoveInstruction(instructionIndex, neededRegister);
             }
-            case "LOADIND" : {
+            case "LOADIND": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 neededRegister = Integer.parseInt(tokens[2]);
-                return new LoadIndInstruction(instructionIndex,neededRegister);
+                return new LoadIndInstruction(instructionIndex, neededRegister);
             }
-            case "STOREIND" : {
+            case "STOREIND": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 neededRegister = Integer.parseInt(tokens[2]);
-                return new StoreIndInstruction(instructionIndex,neededRegister);
+                return new StoreIndInstruction(instructionIndex, neededRegister);
             }
             default:
                 return null;
