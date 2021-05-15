@@ -24,7 +24,6 @@ public class Main {
         fillArrayWith(registers, 0);
 
         debugMode = Arrays.asList(args).contains("-d");
-        System.out.println("Debug enabled: " + debugMode);
 
         String scriptPath = findScriptPath(args);
         if (scriptPath != null) {
@@ -36,7 +35,7 @@ public class Main {
 
         long endTime = System.currentTimeMillis();
 
-        System.out.println("That took " + (endTime - startTime) + " milliseconds");
+        debugPrint("That took " + (endTime - startTime) + " milliseconds");
     }
 
     private static String findScriptPath(String[] args) {
@@ -54,6 +53,7 @@ public class Main {
      * @param array array to be filled with the provided value
      * @param value used to fill the array
      */
+    @SuppressWarnings("SameParameterValue")
     private static void fillArrayWith(float[] array, int value) {
         Arrays.fill(array, value);
     }
@@ -75,30 +75,28 @@ public class Main {
             Instruction o = parseInstruction(script.get(pc));
             Class c = o.getClass();
             if (o instanceof StopInstruction) break;
-            if (debugMode) printForDebug(c);
+            printForDebug(c);
             if (o.getInstructionIndex() == pc) {
-                //System.out.println("Compare worked!!");
+                //print("Compare worked!!");
                 if (o != null) o.run();
             }
-            if (debugMode) printForDebug(c);
+            printForDebug(c);
         }
 
     }
 
     private static void printForDebug(Class c) {
-
-        System.out.println("ACCU: " + accu);
+        debugPrint("ACCU: " + accu);
         if (neededRegister != -1) {
-            System.out.println("REG" + neededRegister + ": " + registers[neededRegister]);
+            debugPrint("REG" + neededRegister + ": " + registers[neededRegister]);
         }
-        System.out.println("PC: " + pc);
-        System.out.println("----------------------------------------");
+        debugPrint("PC: " + pc);
+        debugPrint("----------------------------------------");
     }
 
     static Instruction parseInstruction(String instruction) {
         String[] tokens = instruction.split(" ");
-        //System.out.println("lola" + tokens[0]);
-        if (debugMode) printCommand(tokens);
+        printCommand(tokens);
         neededRegister = -1;
 
         switch (tokens[1]) {
@@ -215,12 +213,16 @@ public class Main {
         }
     }
 
+    static void debugPrint(String s) {
+        if (debugMode) System.out.println(s);
+    }
+
     static void printCommand(String[] tokens) {
-        System.out.println("----------------------------------------");
+        debugPrint("----------------------------------------");
         if (tokens.length == 3) {
-            System.out.println(tokens[1] + " " + tokens[2]);
+            debugPrint(tokens[1] + " " + tokens[2]);
         } else {
-            System.out.println(tokens[1]);
+            debugPrint(tokens[1]);
         }
     }
 }

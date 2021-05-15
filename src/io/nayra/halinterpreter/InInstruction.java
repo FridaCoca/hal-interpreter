@@ -18,7 +18,7 @@ public class InInstruction extends Instruction {
         } else {
             Main.accu = Main.io1;
         }
-        //System.out.println("ACCU: " + Main.accu);
+        //Main.debugPrint("ACCU: " + Main.accu);
     }
 
     @Override
