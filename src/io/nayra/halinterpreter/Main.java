@@ -61,8 +61,7 @@ public class Main {
         }*/
 
         debugMode = Arrays.asList(args).contains("-d");
-        System.out.println("Debug enabled: " + debugMode);
-
+        System.out.println("Debug enabled: " + debugMode)
         Arrays.fill(memory, 5);//initializes Elements of registry with 0
         memory[2] = 3;
 
@@ -94,23 +93,25 @@ public class Main {
                 result.add(br.readLine());
             }
         } catch (IOException e) {
+
             e.printStackTrace();
         }
         return result;
     }
 
-    static void interpret(String program) {
+    /*static void interpret(String program) {
         String[] instructions = program.split("\n");
         for (String instruction : instructions) {
             Instruction o = parseInstruction(instruction);
             System.out.println(o);
             if (o != null) o.run();
         }
-    }
+    }*/
 
-    static void interpret(ArrayList<String> script) {
+    /*static void interpret(ArrayList<String> script) {
         for (String instruction : script) {
             Instruction o = parseInstruction(instruction);
+            if (o instanceof StopInstruction) break;
             Class c = o.getClass();
             if (debugMode) printForDebug(c);
             if (o.getInstructionIndex() == pc) {
@@ -119,20 +120,23 @@ public class Main {
             }
             if (debugMode) printForDebug(c);
         }
-    }
-    /*static void interpreXt(ArrayList<String> script) {
-        while(pc < script.size()) {
+    }*/
+
+    static void interpret(ArrayList<String> script) {
+        while (pc < script.size()) {
             Instruction o = parseInstruction(script.get(pc));
             Class c = o.getClass();
+            if (o instanceof StopInstruction) break;
             if (debugMode) printForDebug(c);
             if (o.getInstructionIndex() == pc) {
                 //System.out.println("Compare worked!!");
                 if (o != null) o.run();
             }
             if (debugMode) printForDebug(c);
-        }*/
+        }
 
-    /*static boolean classUsesRegister(Instruction o) {
+    }
+   /* static boolean classUsesRegister(Instruction o) {
         Class c = o.getClass();
         if (c == AddInstruction.class) return true;
         else if (c == SubInstruction.class) return true;
@@ -186,7 +190,7 @@ public class Main {
             }
             case "LOADNUM": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
-                float value = Integer.parseInt(tokens[2]);
+                float value = Float.parseFloat(tokens[2]);
                 return new LoadNumberInstruction(instructionIndex, value);
             }
             case "STORE": {
@@ -221,8 +225,8 @@ public class Main {
             }
             case "ADDNUM": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
-                int value = Integer.parseInt(tokens[2]);
-                return new AddNumInstruction(instructionIndex,value);
+                float value = Float.parseFloat(tokens[2]);
+                return new AddNumInstruction(instructionIndex, value);
             }
             case "SUB": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
@@ -241,17 +245,17 @@ public class Main {
             }
             case "SUBNUM": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
-                float value = Integer.parseInt(tokens[2]);
+                float value = Float.parseFloat(tokens[2]);
                 return new SubNumberInstruction(instructionIndex, value);
             }
             case "MULNUM": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
-                float value = Integer.parseInt(tokens[2]);
+                float value = Float.parseFloat(tokens[2]);
                 return new MultiplicationNumberInstruction(instructionIndex, value);
             }
             case "DIVNUM": {
                 int instructionIndex = Integer.parseInt((tokens[0]));
-                float value = Integer.parseInt(tokens[2]);
+                float value = Float.parseFloat(tokens[2]);
                 return new DivideNumberInstruction(instructionIndex, value);
             }
             case "REMOVE": {

@@ -5,7 +5,7 @@ public class AddInstruction extends Instruction {
     int instructionIndex;
 
 
-    public AddInstruction(int registerNumber, int instructionIndex) {
+    public AddInstruction(int instructionIndex, int registerNumber) {
         this.registerNumber = registerNumber;
         this.instructionIndex = instructionIndex;
     }

@@ -13,8 +13,9 @@ public class JumpNullInstruction extends Instruction{
     void run() {
         if (Main.accu == 0 ){
             Main.pc = programmSpeicherAddr;
-        }
+        } else { Main.pc = Main.pc + 1;}
     }
+
     @Override
     int getInstructionIndex() {
         return instructionIndex;

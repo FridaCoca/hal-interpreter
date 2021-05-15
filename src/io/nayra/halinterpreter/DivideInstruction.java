@@ -11,13 +11,14 @@ public class DivideInstruction extends Instruction {
 
     @Override
     void run() {
-        Main.accu = Main.accu / Main.registers[registerNumber];
+        Main.accu = (Main.accu / Main.registers[registerNumber]);
         Main.pc = Main.pc + 1;
 
     }
 
     @Override
     int getInstructionIndex() {
-        return 0;
+
+        return instructionIndex;
     }
 }
