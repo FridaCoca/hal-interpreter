@@ -15,20 +15,11 @@ public class Main {
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
         debugMode = Arrays.asList(args).contains("-d");
-
         String scriptPath = findScriptPath(args);
-
         // find .config file and run HalOs
-
-
-        HalProcessor h1 = new HalProcessor(scriptPath);
-        h1.run();
-
-        HalProcessor h2 = new HalProcessor(scriptPath);
-        h2.run();
-
+        HalOs os = new HalOs();
+        os.run();
         long endTime = System.currentTimeMillis();
-
         System.out.println("That took " + (endTime - startTime) + " milliseconds");
     }
 

@@ -8,12 +8,16 @@ public class HalOs {
         readConfig();
 
         // 2 - run in threads each HalProcessor
-        
+
     }
 
     /**
      * Find, read and initialize OS with configFile
      */
     private void readConfig() {
+    }
+
+    public void run() {
+
     }
 }
