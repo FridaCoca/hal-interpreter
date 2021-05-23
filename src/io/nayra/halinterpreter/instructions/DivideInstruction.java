@@ -1,6 +1,6 @@
 package io.nayra.halinterpreter.instructions;
 
-import io.nayra.halinterpreter.Main;
+import io.nayra.halinterpreter.HalProcessor;
 
 public class DivideInstruction extends Instruction {
     int registerNumber;
@@ -12,15 +12,13 @@ public class DivideInstruction extends Instruction {
     }
 
     @Override
-    void run() {
-        Main.accu = (Main.accu / Main.registers[registerNumber]);
-        Main.pc = Main.pc + 1;
-
+    public void run(HalProcessor halProcessor) {
+        halProcessor.accu = (halProcessor.accu / halProcessor.registers[registerNumber]);
+        halProcessor.pc = halProcessor.pc + 1;
     }
 
     @Override
-    int getInstructionIndex() {
-
+    public int getInstructionIndex() {
         return instructionIndex;
     }
 }

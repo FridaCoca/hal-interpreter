@@ -1,11 +1,10 @@
 package io.nayra.halinterpreter.instructions;
 
-import io.nayra.halinterpreter.Main;
+import io.nayra.halinterpreter.HalProcessor;
 
 public class AddInstruction extends Instruction {
     private final int registerNumber;
     int instructionIndex;
-
 
     public AddInstruction(int instructionIndex, int registerNumber) {
         this.registerNumber = registerNumber;
@@ -13,10 +12,10 @@ public class AddInstruction extends Instruction {
     }
 
     @Override
-    public void run() {
-        float value = Main.registers[registerNumber];
-        Main.accu = Main.accu + value;
-        Main.pc = Main.pc + 1;
+    public void run(HalProcessor halProcessor) {
+        float value = halProcessor.registers[registerNumber];
+        halProcessor.accu = halProcessor.accu + value;
+        halProcessor.pc = halProcessor.pc + 1;
     }
 
     @Override
