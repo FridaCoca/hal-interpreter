@@ -1,4 +1,6 @@
-package io.nayra.halinterpreter;
+package io.nayra.halinterpreter.instructions;
+
+import io.nayra.halinterpreter.Main;
 
 public class MultiplicationNumberInstruction extends Instruction{
     int instructionIndex;

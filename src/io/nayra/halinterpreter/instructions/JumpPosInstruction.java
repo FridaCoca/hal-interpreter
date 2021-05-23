@@ -1,20 +1,22 @@
-package io.nayra.halinterpreter;
+package io.nayra.halinterpreter.instructions;
 
-public class JumpInstruction extends Instruction {
+import io.nayra.halinterpreter.Main;
 
+public class JumpPosInstruction extends Instruction{
     int instructionIndex;
     int programmSpeicherAddr;
 
-    public JumpInstruction(int instructionIndex, int programmSpeicherAddr) {
+    public JumpPosInstruction(int instructionIndex, int programmSpeicherAddr) {
         this.instructionIndex = instructionIndex;
         this.programmSpeicherAddr = programmSpeicherAddr;
     }
 
     @Override
     void run() {
-        Main.pc = programmSpeicherAddr;
+        if(Main.accu > 0){
+            Main.pc = programmSpeicherAddr;
+        }
     }
-
     @Override
     int getInstructionIndex() {
         return instructionIndex;

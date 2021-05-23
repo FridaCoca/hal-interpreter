@@ -1,4 +1,6 @@
-package io.nayra.halinterpreter;
+package io.nayra.halinterpreter.instructions;
+
+import io.nayra.halinterpreter.Main;
 
 public class AddInstruction extends Instruction {
     private final int registerNumber;
@@ -11,14 +13,14 @@ public class AddInstruction extends Instruction {
     }
 
     @Override
-    void run() {
+    public void run() {
         float value = Main.registers[registerNumber];
         Main.accu = Main.accu + value;
         Main.pc = Main.pc + 1;
     }
 
     @Override
-    int getInstructionIndex() {
+    public int getInstructionIndex() {
         return instructionIndex;
     }
 }

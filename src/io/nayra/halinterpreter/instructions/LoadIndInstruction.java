@@ -1,5 +1,8 @@
-package io.nayra.halinterpreter;
-public class LoadIndInstruction extends Instruction{
+package io.nayra.halinterpreter.instructions;
+
+import io.nayra.halinterpreter.Main;
+
+public class LoadIndInstruction extends Instruction {
     int instructionIndex;
     int register;
 
@@ -9,13 +12,14 @@ public class LoadIndInstruction extends Instruction{
     }
 
     @Override
-    void run() {
+    public void run() {
         Main.accu = Main.memory[register];
         Main.pc = Main.pc + 1;
-        
+
     }
+
     @Override
-    int getInstructionIndex() {
+    public int getInstructionIndex() {
         return instructionIndex;
     }
 }

@@ -1,6 +1,8 @@
-package io.nayra.halinterpreter;
+package io.nayra.halinterpreter.instructions;
 
-public class SubNumberInstruction extends Instruction{
+import io.nayra.halinterpreter.Main;
+
+public class SubNumberInstruction extends Instruction {
     int instructionIndex;
     float value;
 
@@ -10,13 +12,13 @@ public class SubNumberInstruction extends Instruction{
     }
 
     @Override
-    void run() {
+    public void run() {
         Main.accu = Main.accu - value;
-        Main.pc = Main.pc +1;
+        Main.pc = Main.pc + 1;
     }
 
     @Override
-    int getInstructionIndex() {
+    public int getInstructionIndex() {
         return instructionIndex;
     }
 }

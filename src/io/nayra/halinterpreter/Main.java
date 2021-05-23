@@ -1,5 +1,7 @@
 package io.nayra.halinterpreter;
 
+import io.nayra.halinterpreter.instructions.*;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -8,10 +10,10 @@ import java.util.Arrays;
 import java.io.File;
 
 public class Main {
-    static float[] memory = new float[100];
-    static float[] registers = new float[16]; //static makes string[] accessible from everywhere
-    static float accu = 0;
-    static int pc = 0;
+    public static float[] memory = new float[100];
+    public static float[] registers = new float[16]; //static makes string[] accessible from everywhere
+    public static float accu = 0;
+    public static int pc = 0;
     static float io0 = 0;
     static float io1 = 0;
     static boolean debugMode = true;
