@@ -2,9 +2,6 @@ package io.nayra.halinterpreter;
 
 import io.nayra.halinterpreter.instructions.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -13,12 +10,13 @@ public class HalProcessor {
     public float[] registers = new float[16]; // makes string[] accessible from everywhere
     public float accu = 0;
     public int pc = 0;
-    float io0 = 0;
-    float io1 = 0;
+    public float io0 = 0;
+    public float io1 = 0;
     int neededRegister = -1;
     private final String scriptPath;
 
     public HalProcessor(String scriptPath) {
+        System.out.println("ProcessorObject created - ProgramPath: " + scriptPath);
         this.scriptPath = scriptPath;
         fillArrayWith(memory, 0);
         fillArrayWith(registers, 0);
@@ -26,7 +24,6 @@ public class HalProcessor {
 
     /**
      * initializes all the elements of array with value
-     *
      * @param array array to be filled with the provided value
      * @param value used to fill the array
      */
@@ -68,18 +65,10 @@ public class HalProcessor {
     }
 
     ArrayList<String> extractLinesFromFile(String filename) {
-        ArrayList<String> result = new ArrayList<>();
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            while (br.ready()) {
-                result.add(br.readLine());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return result;
+        return HalOs.extractLinesFromFile(filename);
     }
 
-    private void printForDebug(Class c) {
+    public void printForDebug(Class c) {
         debugPrint("ACCU: " + accu);
         if (neededRegister != -1) {
             debugPrint("REG" + neededRegister + ": " + registers[neededRegister]);
@@ -207,7 +196,7 @@ public class HalProcessor {
         }
     }
 
-    void debugPrint(String s) {
+    public void debugPrint(String s) {
         if (Main.debugMode) System.out.println(s);
     }
 }

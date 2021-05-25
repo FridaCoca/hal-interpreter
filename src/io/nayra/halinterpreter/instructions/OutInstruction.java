@@ -1,5 +1,6 @@
 package io.nayra.halinterpreter.instructions;
 
+import io.nayra.halinterpreter.HalProcessor;
 import io.nayra.halinterpreter.Main;
 
 public class OutInstruction extends Instruction {
@@ -14,21 +15,21 @@ public class OutInstruction extends Instruction {
     }
 
     @Override
-    void run() {
-        Main.pc = Main.pc + 1;
+    public void run(HalProcessor halProcessor) {
+        halProcessor.pc = halProcessor.pc + 1;
 
         if (number == 0) {
-            Main.io0 = Main.accu;
-            Main.debugPrint("io0: " + Main.io0);
+            halProcessor.io0 = halProcessor.accu;
+            halProcessor.debugPrint("io0: " + halProcessor.io0);
         } else {
-            Main.io1 = Main.accu;
-            Main.debugPrint("io1: " + Main.io1);
+            halProcessor.io1 = halProcessor.accu;
+            halProcessor.debugPrint("io1: " + halProcessor.io1);
         }
-//TO DO OUT 0 SCHNITTSTELLE
+
     }
 
     @Override
-    int getInstructionIndex() {
+    public int getInstructionIndex() {
         return instructionIndex;
     }
 }

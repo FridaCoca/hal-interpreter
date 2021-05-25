@@ -1,5 +1,6 @@
 package io.nayra.halinterpreter.instructions;
 
+import io.nayra.halinterpreter.HalProcessor;
 import io.nayra.halinterpreter.Main;
 
 public class StopInstruction extends Instruction {
@@ -10,13 +11,13 @@ public class StopInstruction extends Instruction {
     }
 
     @Override
-    void run() {
-        Main.debugPrint("Program stopped");
-        Main.pc = Main.pc + 1;
+    public void run(HalProcessor halProcessor) {
+        halProcessor.debugPrint("Program stopped");
+        halProcessor.pc = halProcessor.pc + 1;
 
     }
     @Override
-    int getInstructionIndex() {
+    public int getInstructionIndex() {
         return instructionIndex;
     }
 }

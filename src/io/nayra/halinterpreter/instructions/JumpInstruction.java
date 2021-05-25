@@ -1,5 +1,6 @@
 package io.nayra.halinterpreter.instructions;
 
+import io.nayra.halinterpreter.HalProcessor;
 import io.nayra.halinterpreter.Main;
 
 public class JumpInstruction extends Instruction {
@@ -13,12 +14,12 @@ public class JumpInstruction extends Instruction {
     }
 
     @Override
-    void run() {
-        Main.pc = programmSpeicherAddr;
+    public void run(HalProcessor halProcessor) {
+        halProcessor.pc = programmSpeicherAddr;
     }
 
     @Override
-    int getInstructionIndex() {
+    public int getInstructionIndex() {
         return instructionIndex;
     }
 }

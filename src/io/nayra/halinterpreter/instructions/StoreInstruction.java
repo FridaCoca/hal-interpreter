@@ -1,5 +1,6 @@
 package io.nayra.halinterpreter.instructions;
 
+import io.nayra.halinterpreter.HalProcessor;
 import io.nayra.halinterpreter.Main;
 
 public class StoreInstruction extends Instruction {
@@ -12,13 +13,13 @@ public class StoreInstruction extends Instruction {
     }
 
     @Override
-    void run() {
-        Main.registers[registerNumber] = Main.accu;
-        Main.pc = Main.pc + 1;
+    public void run(HalProcessor halProcessor) {
+        halProcessor.registers[registerNumber] = halProcessor.accu;
+        halProcessor.pc = halProcessor.pc + 1;
     }
 
     @Override
-    int getInstructionIndex() {
+    public int getInstructionIndex() {
         return instructionIndex;
     }
 }
