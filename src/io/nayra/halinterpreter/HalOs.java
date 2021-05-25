@@ -39,6 +39,11 @@ public class HalOs {
 
         }
 
+        // Prozessoren linken
+
+
+        // Buffer aufrufen
+
     }
 
 

@@ -5,7 +5,7 @@ import io.nayra.halinterpreter.instructions.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class HalProcessor {
+public class HalProcessor extends Thread{
     public float[] memory = new float[100];
     public float[] registers = new float[16]; // makes string[] accessible from everywhere
     public float accu = 0;
@@ -32,7 +32,7 @@ public class HalProcessor {
         Arrays.fill(array, value);
     }
 
-    void run() {
+    public void run() {
         if (scriptPath != null) {
             ArrayList<String> scriptLines = extractLinesFromFile(scriptPath);
             interpret(scriptLines);
