@@ -4,14 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Vector;
 
 public class HalOs {
     final String configFile;
     private final Vector<HalProcessor> processors = new Vector<>();
-    private final ArrayList<String> scriptFirstPart = new ArrayList<>();
-    private final ArrayList<String> scriptSecondPart = new ArrayList<>();
+    private final ArrayList<String> processorCreationInstructions = new ArrayList<>();
+    private final ArrayList<String> linkingInstructions = new ArrayList<>();
 
     public HalOs(String configFile) {
         System.out.println("HalOs Object created");
@@ -22,26 +21,33 @@ public class HalOs {
         ArrayList<String> instructionLinesInConfig = extractLinesFromFile(configFile);
         splitFile(instructionLinesInConfig);
 
-        for (String instructionForProcessorCreation : scriptFirstPart) {
-            String[] stringsInLine = instructionForProcessorCreation.trim().split("\\s+");
-            String pathToHalProgram = stringsInLine[1];
-            processors.add(new HalProcessor(pathToHalProgram));
-        }
-        for (String instructionForLinking : scriptSecondPart) {
-            String[] stringsInLine = instructionForLinking.trim().split("\\s+");
-
-            //0:3 > 1:2
-            int outProcessor = Character.getNumericValue(stringsInLine[0].charAt(0));
-            int outChannel = Character.getNumericValue(stringsInLine[0].charAt(2));
-            int inProcessor = Character.getNumericValue(stringsInLine[2].charAt(0));
-            int inChannel = Character.getNumericValue(stringsInLine[2].charAt(2));
-
-            Buffer b = new Buffer();
-            processors.get(outProcessor).addBufferForOutChannel(outChannel, b);
-            processors.get(inProcessor).addBufferForInChannel(inChannel, b);
-        }
+        for (String instruction : processorCreationInstructions) createProcessor(instruction);
+        for (String instruction : linkingInstructions) linkProcessors(instruction);
     }
 
+    private void linkProcessors(String instructionForLinking) {
+        String[] stringsInLine = instructionForLinking.trim().split("\\s+");
+
+        //0:3 > 1:2
+        int outProcessor = Character.getNumericValue(stringsInLine[0].charAt(0));
+        int outChannel = Character.getNumericValue(stringsInLine[0].charAt(2));
+        int inProcessor = Character.getNumericValue(stringsInLine[2].charAt(0));
+        int inChannel = Character.getNumericValue(stringsInLine[2].charAt(2));
+
+        Buffer b = new Buffer();
+        processors.get(outProcessor).addBufferForOutChannel(outChannel, b);
+        processors.get(inProcessor).addBufferForInChannel(inChannel, b);
+    }
+
+    private void createProcessor(String instructionForProcessorCreation) {
+        String[] stringsInLine = getStrings(instructionForProcessorCreation);
+        String pathToHalProgram = stringsInLine[1];
+        processors.add(new HalProcessor(pathToHalProgram));
+    }
+
+    private String[] getStrings(String instructionForProcessorCreation) {
+        return instructionForProcessorCreation.trim().split("\\s+");
+    }
 
     public static ArrayList<String> extractLinesFromFile(String filename) {
         ArrayList<String> result = new ArrayList<>();
@@ -74,11 +80,11 @@ public class HalOs {
                     signalForFirstPart = false;
                 } else {
                     System.out.println("Line in Script 1: " + instructionLine);
-                    scriptFirstPart.add(instructionLine);
+                    processorCreationInstructions.add(instructionLine);
                 }
             } else {
                 System.out.println("Line in Script 2: " + instructionLine);
-                scriptSecondPart.add(instructionLine);
+                linkingInstructions.add(instructionLine);
             }
         }
     }
