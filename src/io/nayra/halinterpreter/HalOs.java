@@ -1,86 +1,45 @@
 package io.nayra.halinterpreter;
 
-import javax.swing.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Vector;
 
 public class HalOs {
     final String configFile;
+    private final Vector<HalProcessor> processors = new Vector<>();
+    private final ArrayList<String> scriptFirstPart = new ArrayList<>();
+    private final ArrayList<String> scriptSecondPart = new ArrayList<>();
 
     public HalOs(String configFile) {
         System.out.println("HalOs Object created");
         this.configFile = configFile;
     }
 
-
-    /**
-     * Find, read and initialize OS with configFile
-     */
-    public void rxun() {
-        ArrayList<String> InstructionLinesInConfig = extractLinesFromFile(configFile);
-        int size = InstructionLinesInConfig.size();
-
-        String firstStringInLine;
-        String pathToHalProgram;
-        int instructionIndex = 0;
-
-        for (int i = 1; i < size; i++) {
-            String instructionLine = InstructionLinesInConfig.get(i);
-            String[] stringsInLine = instructionLine.trim().split("\\s+");
-            pathToHalProgram = stringsInLine[1];
-
-            firstStringInLine = stringsInLine[0];
-            boolean firstStringIsInt = firstStringInLine.matches("\\d");
-            if (!firstStringIsInt) {
-                instructionIndex = i;
-                break;
-            }
-            HalProcessor processor = new HalProcessor(pathToHalProgram, 1, 2, 3, 4);
-        }
-
-
-        // Prozessoren linken
-
-
-        // Buffer aufrufen
-
-    }
-
-
     public void run() {
-        ArrayList<String> InstructionLinesInConfig = extractLinesFromFile(configFile);
+        ArrayList<String> instructionLinesInConfig = extractLinesFromFile(configFile);
+        splitFile(instructionLinesInConfig);
 
-
-        splitFile(InstructionLinesInConfig);
-
-        String pathToHalProgram;
-        int instructionIndex = 0;
-
-        for (int i = 1; i < size; i++) {
-            String instructionForProcessorCreation = scriptFirstPart.get(i);
-            String instructionsForLinking = scriptSecondPart.get(i);
-
+        for (String instructionForProcessorCreation : scriptFirstPart) {
             String[] stringsInLine = instructionForProcessorCreation.trim().split("\\s+");
-            pathToHalProgram = stringsInLine[1];
-
-            stringsInLine = instructionsForLinking.trim().split("\\s+");
-            int firstKey = stringsInLine[0].charAt(0);
-            int secondKey = stringsInLine[0].charAt(2);
-            int firstValue = stringsInLine[3].charAt(0);
-            int secondValue = stringsInLine[3].charAt(2);
-
-            HalProcessor processor = new HalProcessor(pathToHalProgram, firstKey, firstValue, secondKey, secondValue);
+            String pathToHalProgram = stringsInLine[1];
+            processors.add(new HalProcessor(pathToHalProgram));
         }
+        for (String instructionForLinking : scriptSecondPart) {
+            String[] stringsInLine = instructionForLinking.trim().split("\\s+");
 
+            //0:3 > 1:2
+            int outProcessor = Character.getNumericValue(stringsInLine[0].charAt(0));
+            int outChannel = Character.getNumericValue(stringsInLine[0].charAt(2));
+            int inProcessor = Character.getNumericValue(stringsInLine[2].charAt(0));
+            int inChannel = Character.getNumericValue(stringsInLine[2].charAt(2));
 
-        // Prozessoren linken
-
-
-        // Buffer aufrufen
-
+            Buffer b = new Buffer();
+            processors.get(outProcessor).addBufferForOutChannel(outChannel, b);
+            processors.get(inProcessor).addBufferForInChannel(inChannel, b);
+        }
     }
 
 
@@ -96,16 +55,12 @@ public class HalOs {
         return result;
     }
 
-    ArrayList<String> scriptFirstPart = new ArrayList<>();
-    ArrayList<String> scriptSecondPart = new ArrayList<>();
-
-
-    public void splitFile(ArrayList<String> result) {
-        int size = result.size();
+    public void splitFile(ArrayList<String> instructionLinesInConfig) {
+        int size = instructionLinesInConfig.size();
         boolean signalForFirstPart = true;
 
         for (int i = 1; i < size; i++) {
-            String instructionLine = result.get(i);
+            String instructionLine = instructionLinesInConfig.get(i);
 
             // trim() -> eliminates spaces in front or end of a string
             // " lola " -> "lola"

@@ -4,11 +4,11 @@ import io.nayra.halinterpreter.HalProcessor;
 import io.nayra.halinterpreter.Main;
 
 public class InInstruction extends Instruction {
-    private int number;
+    private int s;
     int instructionIndex;
 
-    public InInstruction(int instructionIndex, int number) {
-        this.number = number;
+    public InInstruction(int instructionIndex, int s) {
+        this.s = s;
         this.instructionIndex = instructionIndex;
     }
 
@@ -16,11 +16,18 @@ public class InInstruction extends Instruction {
     public void run(HalProcessor halProcessor) {
         halProcessor.pc = halProcessor.pc + 1;
 
-        if (number == 0) {
+        if(halProcessor.inputLinks.containsKey(s)){
+            halProcessor.accu = halProcessor.inputLinks.get(s).get();
+        }else {
+            throw new IllegalArgumentException("IN-Register " + s + " does not exist!");
+        }
+
+
+        /*if (number == 0) {
             halProcessor.accu = halProcessor.io0;
         } else {
             halProcessor.accu = halProcessor.io1;
-        }
+        }*/
         //Main.debugPrint("ACCU: " + Main.accu);
     }
 

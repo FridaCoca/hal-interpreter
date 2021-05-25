@@ -23,18 +23,17 @@ public class HalProcessor extends Thread{
     int firstValue;
     int secondValue;
 
-    HashMap<Integer, Integer> inputLinks = new HashMap<Integer, Integer>();
-    HashMap<Integer, Integer> outputLinks = new HashMap<Integer, Integer>();
+    public HashMap<Integer, Buffer> inputLinks = new HashMap<Integer, Buffer>();
+    public HashMap<Integer, Buffer> outputLinks = new HashMap<Integer, Buffer>();
 
-    public HalProcessor(String scriptPath, int firstKey, int secondKey, int firstValue, int secondValue) {
+    public HalProcessor(String scriptPath) {
         System.out.println("ProcessorObject created - ProgramPath: " + scriptPath);
 
         this.scriptPath = scriptPath;
 
-        inputLinks.put(firstKey,firstValue);
-        outputLinks.put(secondKey, secondValue);
-        System.out.println("Links: " + firstKey + " > " + inputLinks.get(firstKey));
-        System.out.println("Links: " + secondKey + " > " + inputLinks.get(secondKey));
+
+        //System.out.println("Links: " + firstKey + " > " + inputLinks.get(firstKey).get());
+        //System.out.println("Links: " + secondKey + " > " + inputLinks.get(secondKey).get());
 
         fillArrayWith(memory, 0);
         fillArrayWith(registers, 0);
@@ -58,6 +57,15 @@ public class HalProcessor extends Thread{
             System.out.println("No valid script file found in args");
         }
     }
+
+    public void addBufferForInChannel(int channel, Buffer b){
+        inputLinks.put(channel, b);
+    }
+
+    public void addBufferForOutChannel(int channel, Buffer b){
+        outputLinks.put(channel, b);
+    }
+
 
     void printCommand(String[] tokens) {
         debugPrint("----------------------------------------");

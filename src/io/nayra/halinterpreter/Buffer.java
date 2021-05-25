@@ -4,12 +4,13 @@ public class Buffer {
     private boolean available = false;
     private float data;
 
-    public synchronized void put(int x) {
-        while(available) {
+    public synchronized void put(float x) {
+        while (available) {
             try {
                 wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            catch(InterruptedException e) {}
         }
         data = x;
         available = true;
@@ -17,11 +18,12 @@ public class Buffer {
     }
 
     public synchronized float get() {
-        while(!available) {
+        while (!available) {
             try {
                 wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            catch(InterruptedException e) {}
         }
         available = false;
         notifyAll();
