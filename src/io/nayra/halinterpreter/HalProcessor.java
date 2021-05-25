@@ -4,6 +4,8 @@ import io.nayra.halinterpreter.instructions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+
 
 public class HalProcessor extends Thread{
     public float[] memory = new float[100];
@@ -13,11 +15,27 @@ public class HalProcessor extends Thread{
     public float io0 = 0;
     public float io1 = 0;
     int neededRegister = -1;
+
     private final String scriptPath;
 
-    public HalProcessor(String scriptPath) {
+    int firstKey;
+    int secondKey;
+    int firstValue;
+    int secondValue;
+
+    HashMap<Integer, Integer> inputLinks = new HashMap<Integer, Integer>();
+    HashMap<Integer, Integer> outputLinks = new HashMap<Integer, Integer>();
+
+    public HalProcessor(String scriptPath, int firstKey, int secondKey, int firstValue, int secondValue) {
         System.out.println("ProcessorObject created - ProgramPath: " + scriptPath);
+
         this.scriptPath = scriptPath;
+
+        inputLinks.put(firstKey,firstValue);
+        outputLinks.put(secondKey, secondValue);
+        System.out.println("Links: " + firstKey + " > " + inputLinks.get(firstKey));
+        System.out.println("Links: " + secondKey + " > " + inputLinks.get(secondKey));
+
         fillArrayWith(memory, 0);
         fillArrayWith(registers, 0);
     }

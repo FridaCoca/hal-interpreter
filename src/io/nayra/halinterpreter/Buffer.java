@@ -2,7 +2,7 @@ package io.nayra.halinterpreter;
 
 public class Buffer {
     private boolean available = false;
-    private int data;
+    private float data;
 
     public synchronized void put(int x) {
         while(available) {
@@ -16,7 +16,7 @@ public class Buffer {
         notifyAll();
     }
 
-    public synchronized int get() {
+    public synchronized float get() {
         while(!available) {
             try {
                 wait();
