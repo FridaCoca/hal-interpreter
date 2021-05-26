@@ -215,6 +215,10 @@ public class HalProcessor extends Thread{
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 return new StdInInstruction(instructionIndex);
             }
+            case "STDOUT": {
+                int instructionIndex = Integer.parseInt((tokens[0]));
+                return new StdOutInstruction(instructionIndex);
+            }
             default:
                 return null;
         }
