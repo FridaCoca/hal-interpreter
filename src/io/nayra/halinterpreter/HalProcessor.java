@@ -14,14 +14,12 @@ public class HalProcessor extends Thread{
     public int pc = 0;
     public float io0 = 0;
     public float io1 = 0;
+    public float io2 = 0;
+    public float io3 = 0;
+
     int neededRegister = -1;
 
     private final String scriptPath;
-
-    int firstKey;
-    int secondKey;
-    int firstValue;
-    int secondValue;
 
     public HashMap<Integer, Buffer> inputLinks = new HashMap<Integer, Buffer>();
     public HashMap<Integer, Buffer> outputLinks = new HashMap<Integer, Buffer>();
@@ -30,10 +28,6 @@ public class HalProcessor extends Thread{
         System.out.println("ProcessorObject created - ProgramPath: " + scriptPath);
 
         this.scriptPath = scriptPath;
-
-
-        //System.out.println("Links: " + firstKey + " > " + inputLinks.get(firstKey).get());
-        //System.out.println("Links: " + secondKey + " > " + inputLinks.get(secondKey).get());
 
         fillArrayWith(memory, 0);
         fillArrayWith(registers, 0);
@@ -58,12 +52,12 @@ public class HalProcessor extends Thread{
         }
     }
 
-    public void addBufferForInChannel(int channel, Buffer b){
-        inputLinks.put(channel, b);
+    public void addBufferForInChannel(int inChannel, Buffer b){
+        inputLinks.put(inChannel, b);
     }
 
-    public void addBufferForOutChannel(int channel, Buffer b){
-        outputLinks.put(channel, b);
+    public void addBufferForOutChannel(int outChannel, Buffer b){
+        outputLinks.put(outChannel, b);
     }
 
 
@@ -216,6 +210,10 @@ public class HalProcessor extends Thread{
                 int instructionIndex = Integer.parseInt((tokens[0]));
                 neededRegister = Integer.parseInt(tokens[2]);
                 return new StoreIndInstruction(instructionIndex, neededRegister);
+            }
+            case "STDIN": {
+                int instructionIndex = Integer.parseInt((tokens[0]));
+                return new StdInInstruction(instructionIndex);
             }
             default:
                 return null;

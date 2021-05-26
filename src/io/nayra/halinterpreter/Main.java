@@ -11,6 +11,7 @@ public class Main {
         // DEBUG MODE
         args = new String[]{"-d", ".config"};
 
+        //TODO: Loop start fuer alle Processoren im Vector
         long startTime = System.currentTimeMillis();
         debugMode = Arrays.asList(args).contains("-d");
         String configFile = findFile(args);

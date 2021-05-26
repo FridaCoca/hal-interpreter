@@ -1,7 +1,7 @@
 package io.nayra.halinterpreter.instructions;
 
 import io.nayra.halinterpreter.HalProcessor;
-import io.nayra.halinterpreter.Main;
+
 
 public class OutInstruction extends Instruction {
 
