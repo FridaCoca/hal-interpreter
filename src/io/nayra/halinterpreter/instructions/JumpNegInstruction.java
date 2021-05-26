@@ -14,8 +14,11 @@ public class JumpNegInstruction extends Instruction {
 
     @Override
     public void run(HalProcessor halProcessor) {
+        //System.out.println( "JUMP NEG ausgefuehrt ");
         if (halProcessor.accu < 0 ){
             halProcessor.pc = programmSpeicherAddr;
+        } else {
+            halProcessor.pc = halProcessor.pc + 1;
         }
     }
     @Override

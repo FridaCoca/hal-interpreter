@@ -1,7 +1,8 @@
 package io.nayra.halinterpreter.instructions;
-
 import io.nayra.halinterpreter.HalProcessor;
 import io.nayra.halinterpreter.Main;
+
+import java.util.Scanner;
 
 public class InInstruction extends Instruction {
     private int s;
@@ -19,10 +20,17 @@ public class InInstruction extends Instruction {
         if(s == 0){
             System.out.println("Please enter your first value: ");
             // Using Console to input data from user
-            String input = System.console().readLine();
-            halProcessor.accu = Float.parseFloat(input);
+            //String input = System.console().readLine();
+            //halProcessor.accu = Float.parseFloat(input);
 
-            System.out.println("You entered: " + halProcessor.io0);
+            // Using Scanner for Getting Input from User
+            Scanner in = new Scanner(System.in);
+            halProcessor.accu = in.nextFloat();
+            // closing scanner
+            in.close();
+            //System.out.println("You entered: " + halProcessor.io0);
+
+            System.out.println("You entered: " + halProcessor.accu);
         }else{
             if(halProcessor.inputLinks.containsKey(s)){
                 halProcessor.accu = halProcessor.inputLinks.get(s).get();
