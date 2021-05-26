@@ -18,19 +18,25 @@ public class OutInstruction extends Instruction {
     public void run(HalProcessor halProcessor) {
         halProcessor.pc = halProcessor.pc + 1;
 
-        if(halProcessor.outputLinks.containsKey(s)) {
-            halProcessor.outputLinks.get(s).put(halProcessor.accu);
-        } else {
-            throw new IllegalArgumentException("OUT-Register " + s + " does not exist!");
+        if(s == 1){
+            System.out.println("Intermidiate Value: " + halProcessor.accu);
+        }else{
+            if(halProcessor.outputLinks.containsKey(s)) {
+                halProcessor.outputLinks.get(s).put(halProcessor.accu);
+            } else {
+                throw new IllegalArgumentException("OUT-Register " + s + " does not exist!");
+            }
         }
 
-        /*if (s == 0) {
-            halProcessor.io0 = halProcessor.accu;
-            halProcessor.debugPrint("io0: " + halProcessor.io0);
-        } else {
-            halProcessor.io1 = halProcessor.accu;
-            halProcessor.debugPrint("io1: " + halProcessor.io1);
-        }*/
+
+
+       /*if (s == 0) {
+           halProcessor.io0 = halProcessor.accu;
+           halProcessor.debugPrint("io0: " + halProcessor.io0);
+       } else {
+           halProcessor.io1 = halProcessor.accu;
+           halProcessor.debugPrint("io1: " + halProcessor.io1);
+       }*/
 
     }
 
@@ -39,3 +45,4 @@ public class OutInstruction extends Instruction {
         return instructionIndex;
     }
 }
+
