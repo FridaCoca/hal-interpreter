@@ -84,11 +84,11 @@ public class HalOs {
                 if (firstStringInLine.equals("HAL")) {
                     signalForFirstPart = false;
                 } else {
-                    System.out.println("Line in Script 1: " + instructionLine);
+                    //System.out.println("Line in Script 1: " + instructionLine);
                     processorCreationInstructions.add(instructionLine);
                 }
             } else {
-                System.out.println("Line in Script 2: " + instructionLine);
+                //System.out.println("Line in Script 2: " + instructionLine);
                 linkingInstructions.add(instructionLine);
             }
         }

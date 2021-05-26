@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("Working Dir : " + System.getProperty("user.dir"));
         // DEBUG MODE
-        args = new String[]{"-d", ".config"};
+        args = new String[]{".config"}; //"-d", to debug
 
         //TODO: Loop start fuer alle Processoren im Vector
         long startTime = System.currentTimeMillis();

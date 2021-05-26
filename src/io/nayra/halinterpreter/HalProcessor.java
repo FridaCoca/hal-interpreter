@@ -13,7 +13,7 @@ public class HalProcessor extends Thread{
     public float accu = 0;
     public int pc = 0;
     public float io0 = 0;
-    public float io1 = 55;
+    public float io1 = 0;
     public float io2 = 0;
     public float io3 = 0;
 
