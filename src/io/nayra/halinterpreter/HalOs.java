@@ -18,11 +18,16 @@ public class HalOs {
     }
 
     public void run() {
+
         ArrayList<String> instructionLinesInConfig = extractLinesFromFile(configFile);
         splitFile(instructionLinesInConfig);
 
         for (String instruction : processorCreationInstructions) createProcessor(instruction);
         for (String instruction : linkingInstructions) linkProcessors(instruction);
+
+        for(HalProcessor processor: processors){
+            processor.start();
+        }
     }
 
     private void linkProcessors(String instructionForLinking) {
