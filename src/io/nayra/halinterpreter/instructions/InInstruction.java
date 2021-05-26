@@ -14,7 +14,6 @@ public class InInstruction extends Instruction {
 
     @Override
     public void run(HalProcessor halProcessor) {
-        halProcessor.pc = halProcessor.pc + 1;
 
         if(halProcessor.inputLinks.containsKey(s)){
             halProcessor.accu = halProcessor.inputLinks.get(s).get();
@@ -22,6 +21,7 @@ public class InInstruction extends Instruction {
             throw new IllegalArgumentException("IN-Register " + s + " does not exist!");
         }
 
+        halProcessor.pc = halProcessor.pc + 1;
 
         /*if (number == 0) {
             halProcessor.accu = halProcessor.io0;

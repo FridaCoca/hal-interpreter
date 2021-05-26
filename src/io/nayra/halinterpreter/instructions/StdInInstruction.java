@@ -21,7 +21,7 @@ public class StdInInstruction extends Instruction {
 
         // Using Scanner for Getting Input from User
         Scanner in = new Scanner(System.in);
-        halProcessor.io0 = in.nextFloat();
+        halProcessor.accu = in.nextFloat();
         // closing scanner
         in.close();
         //System.out.println("You entered: " + halProcessor.io0);

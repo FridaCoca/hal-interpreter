@@ -11,7 +11,7 @@ public class StdOutInstruction extends Instruction {
 
     @Override
     public void run(HalProcessor halProcessor) {
-        System.out.println("Intermidiate Value: " + halProcessor.io1);
+        System.out.println("Intermidiate Value: " + halProcessor.accu);
         halProcessor.pc = halProcessor.pc + 1;
     }
 
